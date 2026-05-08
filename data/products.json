@@ -1,18 +1,10 @@
 [
   {
-    "id": 1778154026172,
-    "title": "Hi",
-    "description": "ashdfs",
-    "price": "23",
-    "category": "himi",
-    "image": "https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=1024x1024&w=is&k=20&c=NQtm4v1Uzp2luv-6f3qORcq9pDtz2H56p8g9Xix8cY0="
-  },
-  {
-    "id": 1778155527345,
-    "title": "Suman",
-    "description": "Hii there",
-    "price": "99999",
-    "category": "Human",
-    "image": "skjadfhasedf"
+    "id": 1778242992113,
+    "title": "Himanshi",
+    "description": "Hey there",
+    "price": 200,
+    "category": "electronics",
+    "image": "https://images.unsplash.com/photo-1776221241820-6cbbb6e7cb43?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ]

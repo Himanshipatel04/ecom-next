@@ -1,41 +1,31 @@
 import Link from "next/link";
 import { Zap, Twitter, Facebook, Instagram } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
           <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-navy-500 rounded-full flex items-center justify-center">
-                <Zap className="w-4 h-4 text-brand-400" fill="currentColor" />
-              </div>
-              <span className="font-display font-bold text-xl text-white">
-                DEAL<span className="text-brand-500">FUEL</span>
-              </span>
+            <Link href="/" className="flex items-center gap-2 invert">
+              <Image
+                src="/logo.png"
+                alt="DealFuel Logo"
+                width={150}
+                height={150}
+                className="object-contain"
+              />
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
-              DealFuel is a deal website for cool tech deals & amazing offers for
-              web developers, designers, marketers, businesses, bloggers &
+              DealFuel is a deal website for cool tech deals & amazing offers
+              for web developers, designers, marketers, businesses, bloggers &
               freelancers.
             </p>
             <div className="flex items-center gap-3">
               <SocialIcon href="#" icon={<Facebook className="w-4 h-4" />} />
               <SocialIcon href="#" icon={<Twitter className="w-4 h-4" />} />
               <SocialIcon href="#" icon={<Instagram className="w-4 h-4" />} />
-            </div>
-            {/* Payment icons */}
-            <div className="flex items-center gap-2 mt-4">
-              {["AMEX", "VISA", "MC", "DISC"].map((card) => (
-                <span
-                  key={card}
-                  className="bg-white text-gray-800 text-[9px] font-bold px-2 py-1 rounded"
-                >
-                  {card}
-                </span>
-              ))}
             </div>
           </div>
 
@@ -64,7 +54,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
           <div>
             <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">
               Support
@@ -102,19 +91,17 @@ export default function Footer() {
               <SocialIcon href="#" icon={<Twitter className="w-4 h-4" />} />
               <SocialIcon href="#" icon={<Instagram className="w-4 h-4" />} />
             </div>
-            {/* <h4 className="font-semibold text-white mb-3 text-sm">
-              Newsletter
-            </h4>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email..."
-                className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-200 placeholder-gray-500 outline-none focus:border-brand-500 transition-colors"
-              />
-              <button className="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-md text-sm font-semibold transition-colors">
-                Go
-              </button>
-            </div> */}
+
+            <div className="flex items-center gap-2 mt-4">
+              {["AMEX", "VISA", "MC", "DISC"].map((card) => (
+                <span
+                  key={card}
+                  className="bg-white text-gray-800 text-[9px] font-bold px-2 py-1 rounded"
+                >
+                  {card}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -128,13 +115,7 @@ export default function Footer() {
   );
 }
 
-function SocialIcon({
-  href,
-  icon,
-}: {
-  href: string;
-  icon: React.ReactNode;
-}) {
+function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
   return (
     <a
       href={href}

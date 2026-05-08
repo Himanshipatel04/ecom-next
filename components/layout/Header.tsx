@@ -2,18 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import {
-  ShoppingCart,
-  Search,
-  Menu,
-  X,
-  Zap,
-  ChevronDown,
-} from "lucide-react";
+import { ShoppingCart, Search, Menu, X, Zap, ChevronDown } from "lucide-react";
 
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/hooks/useCart";
-
+import Image from "next/image";
 
 export default function Header() {
   const { totalItems, toggleCart } = useCart();
@@ -26,7 +19,7 @@ export default function Header() {
     if (!searchVal.trim()) return;
 
     window.location.href = `/products?search=${encodeURIComponent(
-      searchVal.trim()
+      searchVal.trim(),
     )}`;
 
     setSearchVal("");
@@ -51,18 +44,17 @@ export default function Header() {
         {/* Main Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between">
-            {/* Logo */}
+          
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center">
-                <Zap className="w-4 h-4 text-orange-400" fill="currentColor" />
-              </div>
-
-              <span className="text-xl font-bold tracking-tight">
-                DEAL<span className="text-orange-500">FUEL</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="DealFuel Logo"
+                width={150}
+                height={150}
+                className="object-contain"
+              />
             </Link>
-<nav>
-
+            <nav>
               <Link
                 href="/products"
                 className="px-4 py-2 text-sm font-semibold text-orange-500 hover:text-orange-600 transition"
@@ -234,9 +226,7 @@ function NavItem({
     >
       {label}
 
-      {hasDropdown && (
-        <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-      )}
+      {hasDropdown && <ChevronDown className="w-3.5 h-3.5 opacity-60" />}
     </Link>
   );
 }

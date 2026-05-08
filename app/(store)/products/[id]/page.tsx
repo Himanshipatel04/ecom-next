@@ -85,7 +85,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
 
             <h1 className="font-display text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-snug">
-              {product.title} | Lifetime Access
+              {product.title}
             </h1>
 
             {/* Rating */}
@@ -110,7 +110,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             {/* Price */}
             <div className="bg-gradient-to-r from-navy-500 to-dark-400 rounded-xl p-5 mb-6">
               <div className="flex items-end gap-3">
-                <span className="font-display text-4xl font-extrabold text-white">
+                <span className="font-display text-4xl font-extrabold text-black">
                   {formatPrice(product.price)}
                 </span>
                 <span className="text-gray-400 line-through text-lg mb-1">
@@ -140,8 +140,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             {/* CTA */}
             <div className="flex gap-3">
               <AddToCartButton product={product} />
-              <button className="btn-outline flex-1 justify-center">
-                <Zap className="w-4 h-4" />
+              <button className="btn-outline flex-1 justify-center bg-orange-500 hover:bg-orange-600 text-white rounded-md font-bold text-sm transition-all duration-300 active:scale-95">
+               
                 Buy Now
               </button>
             </div>

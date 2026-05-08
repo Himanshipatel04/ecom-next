@@ -40,21 +40,45 @@ export default function AddProductPage() {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
 
-  const validate = () => {
-    const errs: Partial<FormData> = {};
-    if (!form.title.trim()) errs.title = "Title is required";
-    if (!form.description.trim()) errs.description = "Description is required";
-    if (!form.price || isNaN(Number(form.price)) || Number(form.price) <= 0)
-      errs.price = "Enter a valid price";
-    if (!form.category) errs.category = "Category is required";
-    if (!form.image.trim()) errs.image = "Image URL is required";
-    return errs;
-  };
+const validate = () => {
+  const errs: Partial<FormData> = {};
+
+  if (!form.title.trim()) errs.title = "Title is required";
+
+  if (!form.description.trim())
+    errs.description = "Description is required";
+
+  if (!form.price || isNaN(Number(form.price)) || Number(form.price) <= 0)
+    errs.price = "Enter a valid price";
+
+  if (!form.category)
+    errs.category = "Category is required";
+
+  if (!form.image.trim()) {
+    errs.image = "Image URL is required";
+  } else if (!isValidImageUrl(form.image)) {
+    errs.image = "Enter a valid image URL";
+  }
+
+  return errs;
+};
+
+  function isValidImageUrl(url: string) {
+    if (!url) return false;
+
+    try {
+      const parsed = new URL(url);
+
+      return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch {
+      return false;
+    }
+  }
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
@@ -123,7 +147,10 @@ export default function AddProductPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 space-y-5 shadow-sm">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-xl border border-gray-200 p-6 space-y-5 shadow-sm"
+      >
         {/* Title */}
         <Field label="Product Title" error={errors.title} required>
           <input
@@ -196,11 +223,12 @@ export default function AddProductPage() {
         </Field>
 
         {/* Preview */}
-        {form.image && (
+        {isValidImageUrl(form.image) && (
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
             <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide">
               Image Preview
             </p>
+
             <div className="relative w-32 h-32 bg-white rounded-lg overflow-hidden border border-gray-200">
               <Image
                 src={form.image}
@@ -208,7 +236,6 @@ export default function AddProductPage() {
                 fill
                 className="object-contain p-2"
                 sizes="128px"
-                onError={() => {}}
               />
             </div>
           </div>
@@ -219,7 +246,7 @@ export default function AddProductPage() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary flex-1 justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+            className="p-4 bg-black text-white flex items-center gap-3 rounded-md justify-center disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -235,7 +262,10 @@ export default function AddProductPage() {
           </button>
           <button
             type="button"
-            onClick={() => { setForm(emptyForm); setErrors({}); }}
+            onClick={() => {
+              setForm(emptyForm);
+              setErrors({});
+            }}
             className="px-6 py-2.5 border-2 border-gray-200 rounded-md text-gray-600 hover:border-gray-400 font-semibold text-sm transition-all"
           >
             Reset
