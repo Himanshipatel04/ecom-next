@@ -33,7 +33,7 @@ export async function getAllProducts(): Promise<Product[]> {
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      return [];
     }
 
     const data = await res.json();
