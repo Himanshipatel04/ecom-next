@@ -27,31 +27,41 @@ import { Product } from "@/types";
 const BASE_URL = "https://fakestoreapi.com";
 
 export async function getAllProducts(): Promise<Product[]> {
-  const res = await fetch(`${BASE_URL}/products`, {
-    next: { revalidate: 3600 },
-  });
-  if (!res.ok) throw new Error("Failed to fetch products");
-  const data = await res.json();
-  // Enrich with mock deal data
-  return data.map((p: Product, i: number) => ({
-    ...p,
-    originalPrice:
-      i % 3 === 0
-        ? parseFloat((p.price * 1.4).toFixed(2))
-        : i % 5 === 0
+  try {
+    const res = await fetch(`${BASE_URL}/products`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const data = await res.json();
+
+    return data.map((p: Product, i: number) => ({
+      ...p,
+      originalPrice:
+        i % 3 === 0
+          ? parseFloat((p.price * 1.4).toFixed(2))
+          : i % 5 === 0
           ? parseFloat((p.price * 2.2).toFixed(2))
           : undefined,
-    badge:
-      i % 7 === 0
-        ? "Expiring Soon"
-        : i % 4 === 0
+
+      badge:
+        i % 7 === 0
+          ? "Expiring Soon"
+          : i % 4 === 0
           ? "Best Seller"
           : i < 4
-            ? "New Deal"
-            : undefined,
-  }));
-}
+          ? "New Deal"
+          : undefined,
+    }));
+  } catch (error) {
+    console.error(error);
 
+    return [];
+  }
+}
 export async function getProductById(id: string): Promise<Product> {
   const res = await fetch(`${BASE_URL}/products/${id}`, {
     cache: "force-cache",
@@ -79,6 +89,15 @@ export async function getProductsByCategory(
 }
 
 export async function getAllProductIds(): Promise<{ id: string }[]> {
-  const products = await getAllProducts();
-  return products.map((p) => ({ id: p.id.toString() }));
+  try {
+    const products = await getAllProducts();
+
+    return products.map((p) => ({
+      id: p.id.toString(),
+    }));
+  } catch (error) {
+    console.error("Failed to fetch product IDs:", error);
+
+    return [];
+  }
 }
