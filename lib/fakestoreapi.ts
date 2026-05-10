@@ -87,7 +87,7 @@ export async function getProductsByCategory(
   category: string
 ): Promise<Product[]> {
   const res = await fetch(`${BASE_URL}/products/category/${category}`, {
-    next: { revalidate: 3600 },
+   cache: "no-store"
   });
   if (!res.ok) throw new Error("Failed to fetch category products");
   return res.json();

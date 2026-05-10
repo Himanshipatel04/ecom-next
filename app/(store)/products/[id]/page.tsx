@@ -29,7 +29,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
         images: [product.image],
       },
     };
-  } catch {
+  } catch(err) {
+     console.error("Products page fetch failed:", err);
     return { title: "Product Not Found" };
   }
 }
