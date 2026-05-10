@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";

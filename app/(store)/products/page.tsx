@@ -1,10 +1,9 @@
+export const runtime = "nodejs";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { getAllProducts, getCategories } from "@/lib/fakestoreapi";
 import ProductCard from "@/components/products/ProductCard";
 import CategoryFilter from "@/components/products/CategoryFilter";
-import { ProductCardSkeleton } from "@/components/ui/Skeleton";
-import { Package } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "All Products – Software Deals & Tools",
@@ -17,6 +16,7 @@ export const dynamic = "force-dynamic";
 interface ProductsPageProps {
   searchParams: Promise<{ category?: string; search?: string }>;
 }
+
 
 export default async function ProductsPage({
   searchParams,
