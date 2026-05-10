@@ -64,18 +64,25 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 export async function getProductById(id: string): Promise<Product> {
   const res = await fetch(`${BASE_URL}/products/${id}`, {
-    cache: "force-cache",
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch product");
   return res.json();
 }
 
 export async function getCategories(): Promise<string[]> {
-  const res = await fetch(`${BASE_URL}/products/categories`, {
-    next: { revalidate: 86400 },
-  });
-  if (!res.ok) throw new Error("Failed to fetch categories");
-  return res.json();
+  try {
+    const res = await fetch(`${BASE_URL}/products/categories`, {
+      next: { revalidate: 86400 },
+    });
+
+    if (!res.ok) return [];
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 export async function getProductsByCategory(
