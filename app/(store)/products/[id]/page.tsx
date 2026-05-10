@@ -1,4 +1,5 @@
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -12,10 +13,10 @@ interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
 
-export async function generateStaticParams() {
-  const ids = await getAllProductIds();
-  return ids;
-}
+// export async function generateStaticParams() {
+//   const ids = await getAllProductIds();
+//   return ids;
+// }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
