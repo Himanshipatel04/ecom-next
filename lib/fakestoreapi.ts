@@ -72,9 +72,7 @@ export async function getProductById(id: string): Promise<Product> {
 
 export async function getCategories(): Promise<string[]> {
   try {
-    const res = await fetch(`${BASE_URL}/products/categories`, {
-      next: { revalidate: 86400 },
-    });
+    const res = await fetch(`${BASE_URL}/products/categories`);
 
     if (!res.ok) return [];
 
